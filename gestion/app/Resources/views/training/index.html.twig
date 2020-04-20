@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Trainings list</h1>
+    <form action="{{ path('training_index') }}" >
+        <div class="form-group col-md-6"><br>
+        <input type="text"  placeholder="add keyword" aria-label="add keyword" aria-describedby="button-addon2" type="text" name="q" id="q">
+
+            <input type="submit" value="search" class="btn btn-outline-secondary" type="button" id="button-addon2" >
+        </div>
+    </form>
+    <br>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Duration</th>
+                <th>Startdate</th>
+                <th>Enddate</th>
+                <th>Price</th>
+                <th>Seats</th>
+                <th>Instructor</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for training in trainings %}
+            <tr>
+                <td><a href="{{ path('training_show', { 'id': training.id }) }}">{{ training.id }}</a></td>
+                <td>{{ training.name }}</td>
+                <td>{{ training.duration }}</td>
+                <td>{{ training.startDate|date('Y-m-d') }}</td>
+                <td>{{ training.endDate|date('Y-m-d') }}</td>
+                <td>{{ training.price }}</td>
+                <td>{{ training.seats }}</td>
+                <td>{{ training.instructor.firstName }}</td>
+                <td>
+                    <div class="btn-group" role="group" aria-label="Basic example">
+
+                        <a href="{{ path('training_show', { 'id': training.id }) }}" type="button" class="btn btn-primary">show</a>
+
+                        {% if app.user.hasRole('ROLE_ADMIN') %}
+
+                            <a href="{{ path('training_edit', { 'id': training.id }) }}" type="button" class="btn btn-primary">edit</a>
+
+                        {% endif %}
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table><br>
+    {% if app.user.hasRole('ROLE_ADMIN') %}
+            <a href="{{ path('training_new') }}" class="btn btn-warning">Create a new training</a>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Certificates list</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Code</th>
+                <th>Price</th>
+                <th>Duration</th>
+                <th>Language</th>
+                <th>Domain</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for certificate in certificates %}
+            <tr>
+                <td><a href="{{ path('certificate_show', { 'id': certificate.id }) }}">{{ certificate.id }}</a></td>
+                <td>{{ certificate.name }}</td>
+                <td>{{ certificate.code }}</td>
+                <td>{{ certificate.price }}</td>
+                <td>{{ certificate.duration }}</td>
+                <td>{{ certificate.language }}</td>
+                <td>{{ certificate.domain }}</td>
+                <td>
+                    <div class="btn-group" role="group" aria-label="Basic example">
+
+                    <a href="{{ path('certificate_show', { 'id': certificate.id }) }}" type="button" class="btn btn-primary">show</a>
+
+                    {% if app.user.hasRole('ROLE_ADMIN') %}
+
+                        <a href="{{ path('certificate_edit', { 'id': certificate.id }) }}" type="button" class="btn btn-primary">edit</a>
+
+                    {% endif %}
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% if app.user.hasRole('ROLE_ADMIN') %}
+    <a href="{{ path('certificate_new') }}" class="btn btn-secondary"> Create a new certificate</a>
+    {% endif %}
+{% endblock %}

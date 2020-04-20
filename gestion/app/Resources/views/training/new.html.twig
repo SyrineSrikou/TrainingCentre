@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Training creation</h1>
+
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <input type="submit" value="Create" class="btn btn-primary" />
+    {{ form_end(form) }}<br>
+
+    <div class="container px-lg-5">
+        <div class="row mx-lg-n5">
+            <div class="col py-3 px-lg-5 border bg-light"><a href="{{ path('training_index') }}" class="btn btn-warning">Back to the list</a></div>
+
+        </div>
+    </div>
+
+{% endblock %}

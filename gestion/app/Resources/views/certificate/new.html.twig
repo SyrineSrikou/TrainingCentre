@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Certificate creation</h1>
+
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+    <br>
+        <input type="submit" value="Create" class=" btn btn-primary"/>
+    {{ form_end(form) }}
+    <br>
+            <a href="{{ path('certificate_index') }}" class=" btn btn-warning">Back to the list</a>
+
+{% endblock %}

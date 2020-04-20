@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Instructor</h1>
+
+        <div class="center-block" style="width:30%">
+            <img class="img-responsive" src="{{ asset('images/instructors/' ~ instructor.img) }}"/></div><br>
+
+    <table class="table">
+        <tbody>
+
+            <tr>
+                <th>Id</th>
+                <td>{{ instructor.id }}</td>
+            </tr>
+            <tr>
+                <th>Firstname</th>
+                <td>{{ instructor.firstName }}</td>
+            </tr>
+            <tr>
+                <th>Lastname</th>
+                <td>{{ instructor.lastName }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ instructor.email }}</td>
+            </tr>
+            <tr>
+                <th>Salary</th>
+                <td>{{ instructor.salary }}</td>
+            </tr>
+            <tr>
+                <th>Phone</th>
+                <td>{{ instructor.phone }}</td>
+            </tr>
+            <tr>
+                <th>formations: </th>
+                <td> {% for formation in instructor.formations %}
+                        <span class="label label-xlg label-primary arrowed arrowed-right">
+                            <a class="white" href="{{ path('training_show', { 'id':  formation.id }) }}">{{ formation.name }}</a>
+                        </span>
+
+                    {% endfor %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="row justify-content-md-center">
+
+        <a href="{{ path('instructor_index') }}" class="btn btn-secondary">Back to the list</a> <br>
+
+        {% if app.user.hasRole('ROLE_ADMIN') %}
+
+            <br><a href="{{ path('instructor_edit', { 'id': instructor.id }) }}" class="btn btn-warning">Edit</a> <br>
+
+
+            {{ form_start(delete_form) }}
+                <br><input type="submit" value="Delete" class="btn btn-danger">
+            {{ form_end(delete_form) }}
+
+        {% endif %}
+    </div>
+{% endblock %}

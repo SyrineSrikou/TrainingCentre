@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div id="wrapper">
+        <div id="container">
+            <a href="{{ path('fos_user_profile_edit') }}" class=" btn btn-primary">edit profile</a>
+            <br>
+            <table class="table">
+                <thead>
+                <tr>
+                    <br>
+                    <th>username</th>
+                    <th>certificates</th>
+                    <th>trainings</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{{ app.user.username }}</td>
+                    <td>{% for cert in app.user.certificates %} {{ cert.name }} {% endfor %}</td>
+                    <td>{% for training in app.user.formations %} {{ training.name }} {% endfor %}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

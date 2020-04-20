@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Certificate</h1>
+    
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ certificate.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ certificate.name }}</td>
+            </tr>
+            <tr>
+                <th>Code</th>
+                <td>{{ certificate.code }}</td>
+            </tr>
+            <tr>
+                <th>Price</th>
+                <td>{{ certificate.price }}</td>
+            </tr>
+            <tr>
+                <th>Duration</th>
+                <td>{{ certificate.duration }}</td>
+            </tr>
+            <tr>
+                <th>Language</th>
+                <td>{{ certificate.language }}</td>
+            </tr>
+            <tr>
+                <th>Domain</th>
+                <td>{{ certificate.domain }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+
+            <a href="{{ path('certificate_index') }}" class="btn btn-warning">Back to the list</a><br>
+
+        {% if certificate in app.user.certificates %}
+            <div class="alert alert-info" role="alert">
+                you already bought this!
+            </div>
+            <br>
+            {% else %}
+      <br>
+            <a href="{{ path('certificate_buy', { 'id': certificate.id }) }}" class="btn btn-primary"> Buy this certificate test</a>
+
+        {% endif %}
+        <br>
+        {% if app.user.hasRole('ROLE_ADMIN') %}
+
+            <a href="{{ path('certificate_edit', { 'id': certificate.id }) }}" class="btn btn-secondary">Edit</a>
+
+            {{ form_start(delete_form) }}
+            <br>
+                <input type="submit" value="Delete" class=" btn btn-danger">
+            {{ form_end(delete_form) }}
+
+        {% endif %}
+    </ul>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Instructors list</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Email</th>
+                <th>Salary</th>
+                <th>Phone</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for instructor in instructors %}
+            <tr>
+                <td><a href="{{ path('instructor_show', { 'id': instructor.id }) }}">{{ instructor.id }}</a></td>
+                <td>{{ instructor.firstName }}</td>
+                <td>{{ instructor.lastName }}</td>
+                <td>{{ instructor.email }}</td>
+                <td>{{ instructor.salary }}</td>
+                <td>{{ instructor.phone }}</td>
+                <td>
+                    <div class="btn-group" role="group" aria-label="Basic example">
+
+                            <a href="{{ path('instructor_show', { 'id': instructor.id }) }}" type="button" class="btn btn-primary">show</a>
+
+                        {% if app.user.hasRole('ROLE_ADMIN') %}
+
+                            <a href="{{ path('instructor_edit', { 'id': instructor.id }) }}" type="button" class="btn btn-primary">edit</a>
+
+                        {% endif %}
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table><br>
+    {% if app.user.hasRole('ROLE_ADMIN') %}
+    <div class="container px-lg-5">
+        <div class="row mx-lg-n5">
+            <br><div class="col py-3 px-lg-5 border bg-light"><a href="{{ path('instructor_new') }}" class="btn btn-warning">add new instructor</a></div>
+
+        </div>
+    </div>
+    {% endif %}
+{% endblock %}
